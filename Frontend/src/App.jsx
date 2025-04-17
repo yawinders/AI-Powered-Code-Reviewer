@@ -11,6 +11,7 @@ import './App.css'
 function App() {
   const [count, setCount] = useState(0)
   const [loader, setLoader] = useState(false);
+  const [outputLoader, setOutputLoader] = useState(false)
   const [language_id, setLanguage_id] = useState(63)
   const [output, setOutput] = useState("")
   const [code, setCode] = useState(` function sum() {
@@ -29,11 +30,13 @@ function App() {
     setReview(response.data)
     setLoader(false);
   }
-  async function getOutput() {
+  async function getOutput(e) {
+    e.stopPropagation()
+    setOutputLoader(true)
     const response = await axios.post('http://localhost:3000/ai/get-output', { code, language_id })
     console.log(response.data.output);
     setOutput(response.data.output)
-
+    setOutputLoader(false)
   }
 
   return (
@@ -56,14 +59,17 @@ function App() {
               }}
             />
           </div>
-          <div
+          {loader ? <div className='spinner review'></div> : <div
             // isLoading={loader}
             onClick={reviewCode}
-            className="review">Review</div>
-          <div
-            // isLoading={loader}
-            onClick={getOutput}
-            className="revieww">Output</div>
+            className="review">Review
+            {outputLoader ? <div className='spinner review'></div> : <span
+
+              // isLoading={loader}
+              onClick={(e) => getOutput(e)}
+              className="revieww">Output</span>}
+          </div>}
+
 
         </div>
         <div className="right">

@@ -61,3 +61,17 @@ main .right {
   font-size: 1.5rem;
   overflow: auto;
 }
+
+.revieww {
+  /* position: absolute; */
+  bottom: 1rem;
+  right: 1rem;
+  background-color: rgb(88, 88, 206);
+  color: #000000;
+  padding: 0.5rem 2rem;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 0.7rem;
+  margin: 5px;
+}
